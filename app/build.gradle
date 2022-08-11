@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.trainingmate"
-        minSdk 23
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -24,10 +24,28 @@ android {
         }
     }
 
+    signingConfigs {
+        //FixMe remove before release
+        ReleaseKey {
+            keyAlias 'trainingKey'
+            keyPassword '3hggugtt'
+            storeFile file('trainingKey')
+            storePassword '3hggugtt'
+        }
+
+    /*    DevKey {
+            keyAlias 'debug_key'
+            keyPassword 'gotripmate2021'
+            storeFile file('debug_key.jks')
+            storePassword '3hggugttt'
+        }*/
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.ReleaseKey
         }
     }
     compileOptions {
@@ -62,7 +80,7 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "androidx.compose.ui:ui:1.3.0-alpha02"
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha16'
+    implementation 'androidx.compose.material3:material3:1.0.0-alpha15'
     implementation "androidx.compose.ui:ui-tooling-preview:1.3.0-alpha02"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
@@ -106,6 +124,10 @@ dependencies {
 
     //image loader coil
     implementation 'io.coil-kt:coil-compose:2.1.0'
+
+    //View Pager
+    //implementation "com.google.accompanist:accompanist-pager:0.26.1-alpha"
+    //implementation "com.google.accompanist:accompanist-pager-indicators:0.26.1-alpha"
 
     // Local Unit Tests
     implementation "androidx.test:core:1.4.0"

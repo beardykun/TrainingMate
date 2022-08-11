@@ -7,8 +7,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.trainingmate.dataBase.dbViewModels.DBViewModel
-import com.example.trainingmate.ui.CommonLazyListTrainingObject
-import com.example.trainingmate.ui.ScaffordWithAppBar
+import com.example.trainingmate.ui.commonComposables.CommonLazyListTrainingObject
+import com.example.trainingmate.ui.commonComposables.ScaffordWithAppBar
 import com.example.trainingmate.ui.destinations.TrainingsDetailDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph

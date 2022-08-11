@@ -9,6 +9,7 @@ class Constants {
         const val BACK_GROUP = "back"
         const val CHEST_GROUP = "chest"
         const val LEGS_GROUP = "legs"
+        const val TRAPS_GROUP = "traps"
         const val ABS_GROUP = "abs"
 
         const val DEFAULT_SET = "DEFAULT_SET"

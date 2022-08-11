@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.trainingmate.dataBase.dbViewModels.DBViewModel
 import com.example.trainingmate.dataBase.objects.TrainingObject
-import com.example.trainingmate.ui.CommonLazyListExerciseObject
-import com.example.trainingmate.ui.ScaffordWithAppBar
+import com.example.trainingmate.ui.commonComposables.CommonLazyListExerciseObject
+import com.example.trainingmate.ui.commonComposables.ScaffordWithAppBar
 import com.example.trainingmate.ui.destinations.TrainingsDetailDestination
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -29,7 +29,7 @@ fun AddExerciseScreen(navigator: DestinationsNavigator, trainingObject: Training
     val selectedList = list.value?.map { exerciseObject ->
         val isSelected =
             trainingObject.trainingExerciseNameList.contains(exerciseObject.exerciseName)
-        AddExerciseListItem(exerciseObject, isSelected)
+        SelectableExerciseListItem(exerciseObject, isSelected)
     }
     selectedList?.let {
         var items by rememberSaveable {

@@ -1,7 +1,6 @@
 package com.example.trainingmate
 
 import android.app.Application
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -9,7 +8,6 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.lifecycle.AndroidViewModel
 import com.example.trainingmate.dataBase.Constants
 import com.example.trainingmate.dataBase.dbViewModels.DBViewModel
-import com.example.trainingmate.dataBase.objects.ExerciseObject
 import com.example.trainingmate.dataBase.objects.TrainingObject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
@@ -43,62 +41,6 @@ class MainViewModel @Inject constructor(
     }
 
     private fun putInDB() {
-        Log.i("TAGGER", "putInDB")
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Biceps Curls",
-                Constants.BICEPS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Shoulder Press",
-                Constants.SHOULDERS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Triceps Press",
-                Constants.TRICEPS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Pull ups",
-                Constants.BACK_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Bench Press",
-                Constants.CHEST_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Squats",
-                Constants.LEGS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
-        dbViewModel.insertExercise(
-            ExerciseObject(
-                null,
-                "Curls",
-                Constants.ABS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp
-            )
-        )
+        insertDefaultExercises(dbViewModel)
     }
 }

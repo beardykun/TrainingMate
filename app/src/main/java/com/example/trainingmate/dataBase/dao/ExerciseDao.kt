@@ -7,7 +7,7 @@ import com.example.trainingmate.dataBase.objects.ExerciseObject
 @Dao
 interface ExerciseDao {
 
-    @Query("SELECT * FROM table_exercise")
+    @Query("SELECT * FROM table_exercise ORDER BY exerciseName ASC")
     fun getAllExercises(): LiveData<List<ExerciseObject>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
