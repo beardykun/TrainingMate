@@ -56,7 +56,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2022",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )
@@ -73,7 +73,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2022",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )
@@ -92,7 +92,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2022",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )
@@ -114,7 +114,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2022",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )
@@ -125,7 +125,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2023",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )
@@ -136,7 +136,7 @@ class TrainingDaoTest {
             "biceps",
             "biceps2024",
             "2022",
-            "one,two,three",
+            mutableListOf("one","two","three"),
             60,
             3600
         )

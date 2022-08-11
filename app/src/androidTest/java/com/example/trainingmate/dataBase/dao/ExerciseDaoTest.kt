@@ -1,9 +1,6 @@
 package com.example.trainingmate.dataBase.dao
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Insert
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.trainingmate.dataBase.TrainingDatabase
@@ -53,7 +50,7 @@ class ExerciseDaoTest {
 
     @Test
     fun insertExercise() = runTest {
-        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", "")
+        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", 0)
         exerciseDao.insertExercise(exerciseObject)
 
         val allExercises = exerciseDao.getAllExercises().getOrAwaitValueTest()
@@ -62,7 +59,7 @@ class ExerciseDaoTest {
 
     @Test
     fun deleteExercise() = runTest {
-        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", "")
+        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", 0)
         exerciseDao.insertExercise(exerciseObject)
 
         exerciseDao.deleteExercise(exerciseObject)
@@ -73,10 +70,10 @@ class ExerciseDaoTest {
 
     @Test
     fun updateExercise() = runTest {
-        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", "")
+        val exerciseObject = ExerciseObject(1, "biceps curl", "biceps", 0)
         exerciseDao.insertExercise(exerciseObject)
 
-        val exerciseObjectUpdated = ExerciseObject(1, "squat", "legs", "")
+        val exerciseObjectUpdated = ExerciseObject(1, "squat", "legs", 0)
         exerciseDao.updateExercise(exerciseObjectUpdated)
 
         val allExercises = exerciseDao.getAllExercises().getOrAwaitValueTest()
@@ -85,13 +82,13 @@ class ExerciseDaoTest {
 
     @Test
     fun getExerciseWithName() = runTest {
-        val exerciseObject1 = ExerciseObject(1, "biceps curl", "biceps", "")
+        val exerciseObject1 = ExerciseObject(1, "biceps curl", "biceps", 0)
         exerciseDao.insertExercise(exerciseObject1)
 
-        val exerciseObject2 = ExerciseObject(2, "squat", "legs", "")
+        val exerciseObject2 = ExerciseObject(2, "squat", "legs", 0)
         exerciseDao.insertExercise(exerciseObject2)
 
-        val exerciseObject3 = ExerciseObject(3, "shoulder press", "shoulders", "")
+        val exerciseObject3 = ExerciseObject(3, "shoulder press", "shoulders", 0)
         exerciseDao.insertExercise(exerciseObject3)
 
         val item = exerciseDao.getExerciseWithName("squat").getOrAwaitValueTest()

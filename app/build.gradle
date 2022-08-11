@@ -62,21 +62,17 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "androidx.compose.ui:ui:1.3.0-alpha02"
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha15'
+    implementation 'androidx.compose.material3:material3:1.0.0-alpha16'
     implementation "androidx.compose.ui:ui-tooling-preview:1.3.0-alpha02"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.3.0-alpha02'
 
     // JSON用
     implementation 'com.google.code.gson:gson:2.9.0'
-
-    //compose
-    implementation "androidx.activity:activity-compose:1.5.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.3.0-alpha02'
 
     //Annotation for dependency injections
     compileOnly 'javax.annotation:jsr250-api:1.0'
@@ -89,8 +85,8 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:1.0.0"
 
     //coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3"
 
     //compose nav lib
     implementation 'io.github.raamcosta.compose-destinations:core:1.7.15-beta'
@@ -109,7 +105,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     //image loader coil
-    //implementation 'io.coil-kt:coil-compose:2.1.0'
+    implementation 'io.coil-kt:coil-compose:2.1.0'
 
     // Local Unit Tests
     implementation "androidx.test:core:1.4.0"
@@ -117,14 +113,14 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-all:1.3"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.robolectric:robolectric:4.3.1"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3"
     testImplementation "com.google.truth:truth:1.1.3"
     testImplementation "org.mockito:mockito-core:2.28.2"
 
     // Instrumented Unit Tests
     androidTestImplementation "junit:junit:4.13.2"
     androidTestImplementation "org.mockito:mockito-android:2.25.0"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation "com.google.truth:truth:1.1.3"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

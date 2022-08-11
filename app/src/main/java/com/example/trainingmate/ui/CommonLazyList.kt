@@ -1,18 +1,21 @@
 package com.example.trainingmate.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.trainingmate.ui.addExercise.AddExerciseListItem
 import com.example.trainingmate.dataBase.objects.ExerciseObject
 import com.example.trainingmate.dataBase.objects.TrainingObject
 
@@ -44,7 +47,7 @@ fun CommonLazyListTrainingObject(
                 modifier = Modifier.fillMaxWidth().clickable {
                     list.value?.get(it)
                         ?.let { training ->
-                           onItemClick(training)
+                            onItemClick(training)
                         }
                 }
             )
@@ -55,26 +58,42 @@ fun CommonLazyListTrainingObject(
 @Composable
 fun CommonLazyListExerciseObject(
     state: LazyListState,
-    list: State<List<ExerciseObject>?>,
+    items: List<AddExerciseListItem>,
     modifier: Modifier,
-    onItemClick: (ExerciseObject) -> Unit
+    onItemClick: (Int) -> Unit
 ) {
-    LazyColumn(state = state) {
-        items(list.value?.size ?: 0) {
-            val item = list.value?.get(it)
-            Row {
-                /*AsyncImage(model = item?.exerciseImage,
-                contentDescription = "Exercise Icon")*/
-                Text(
-                    "${list.value?.get(it)?.exerciseName}",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth().clickable {
-                        item?.let { exercise ->
-                                onItemClick(exercise)
-                            }
+        LazyColumn(state = state, modifier = modifier) {
+            items(items.size) { i ->
+                val listItem = items[i]
+                Row(
+                    modifier = modifier.fillMaxWidth().clickable {
+                            onItemClick(i)
+                    }.padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+
+                ) {
+                    val icon = listItem.exerciseObject.exerciseImage
+                    AsyncImage(
+                        model = icon,
+                        contentDescription = "Exercise Icon",
+                        modifier.size(32.dp)
+                    )
+                    Text(
+                        text = listItem.exerciseObject.exerciseName,
+                        textAlign = TextAlign.Start,
+                    )
+                    if (items[i].isSelected) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Selected",
+                            tint = Color.Green,
+                            modifier = Modifier.size(20.dp)
+                        )
                     }
-                )
+                }
             }
         }
     }
-}
+
+

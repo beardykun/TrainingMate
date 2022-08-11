@@ -1,13 +1,11 @@
 package com.example.trainingmate
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.AndroidViewModel
 import com.example.trainingmate.dataBase.Constants
 import com.example.trainingmate.dataBase.dbViewModels.DBViewModel
@@ -20,12 +18,12 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     application: Application,
-    private val dbViewModel: DBViewModel
+    private val dbViewModel: DBViewModel,
+    private val dataStore: DataStore<Preferences>
 ) : AndroidViewModel(application) {
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "dataStore")
 
-    val EXAMPLE_COUNTER = intPreferencesKey("firstLoad")
-    val exampleCounterFlow = getApplication<TMApplication>().applicationContext.dataStore.data
+    private val EXAMPLE_COUNTER = intPreferencesKey("firstLoad")
+    val exampleCounterFlow = dataStore.data
         .map { preferences ->
             // No type safety.
             val firstTime = preferences[EXAMPLE_COUNTER] ?: 0
@@ -38,7 +36,7 @@ class MainViewModel @Inject constructor(
         }
 
     private suspend fun incrementCounter() {
-        getApplication<TMApplication>().applicationContext.dataStore.edit { settings ->
+        dataStore.edit { settings ->
             val currentCounterValue = settings[EXAMPLE_COUNTER] ?: 0
             settings[EXAMPLE_COUNTER] = currentCounterValue + 1
         }
@@ -51,7 +49,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Biceps Curls",
                 Constants.BICEPS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -59,7 +57,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Shoulder Press",
                 Constants.SHOULDERS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -67,7 +65,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Triceps Press",
                 Constants.TRICEPS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -75,7 +73,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Pull ups",
                 Constants.BACK_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -83,7 +81,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Bench Press",
                 Constants.CHEST_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -91,7 +89,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Squats",
                 Constants.LEGS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
         dbViewModel.insertExercise(
@@ -99,7 +97,7 @@ class MainViewModel @Inject constructor(
                 null,
                 "Curls",
                 Constants.ABS_GROUP,
-                R.drawable.ic_fitness_center_black_24dp.toString()
+                R.drawable.ic_fitness_center_black_24dp
             )
         )
     }
