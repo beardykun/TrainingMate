@@ -25,6 +25,10 @@ class DBViewModel @Inject constructor(
         return exerciseRepository.getAllExercises()
     }
 
+    fun getAllExerciseWithGroup(exGroup: String): LiveData<List<ExerciseObject>> {
+        return exerciseRepository.getAllExerciseWithGroup(exGroup)
+    }
+
     fun getExerciseWithName(name: String): LiveData<ExerciseObject> {
         return exerciseRepository.getExerciseWithName(name)
     }

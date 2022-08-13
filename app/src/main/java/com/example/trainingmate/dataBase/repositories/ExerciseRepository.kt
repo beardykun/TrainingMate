@@ -15,6 +15,10 @@ class ExerciseRepository @Inject constructor(private val exerciseDao: ExerciseDa
         return exerciseDao.getExerciseWithName(exName)
     }
 
+    fun getAllExerciseWithGroup(exGroup: String): LiveData<List<ExerciseObject>> {
+        return exerciseDao.getAllExercisesWithGroup(exGroup)
+    }
+
     suspend fun insertExerciseAsync(exerciseObject: ExerciseObject) {
         exerciseDao.insertExercise(exerciseObject)
     }

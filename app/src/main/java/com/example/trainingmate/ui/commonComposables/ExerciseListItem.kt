@@ -1,5 +1,6 @@
 package com.example.trainingmate.ui.commonComposables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 
 @Composable
@@ -68,8 +70,10 @@ fun ExerciseListItem(
 
     ) {
         val icon = listItem.exerciseObject.exerciseImage
-        AsyncImage(
-            model = icon,
+        Image(
+            painter = rememberAsyncImagePainter(
+                model = icon
+            ),
             contentDescription = "Exercise Icon",
             modifier.size(48.dp)
         )

@@ -3,6 +3,7 @@ package com.example.trainingmate.dataBase.dao
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import com.example.trainingmate.dataBase.Constants
 import com.example.trainingmate.dataBase.TrainingDatabase
 import com.example.trainingmate.dataBase.objects.ExerciseObject
 import com.example.trainingmate.getOrAwaitValueTest
@@ -66,6 +67,18 @@ class ExerciseDaoTest {
 
         val allExercises = exerciseDao.getAllExercises().getOrAwaitValueTest()
         assertThat(allExercises).doesNotContain(exerciseObject)
+    }
+
+    @Test
+    fun getExercisesWithGroup() = runTest {
+        val exerciseObject1 = ExerciseObject(1, "biceps curl", Constants.BICEPS_GROUP, 0)
+        exerciseDao.insertExercise(exerciseObject1)
+        val exerciseObject2 = ExerciseObject(2, "abs curl", Constants.CHEST_GROUP, 0)
+        exerciseDao.insertExercise(exerciseObject2)
+
+        val allExercises = exerciseDao.getAllExercisesWithGroup(Constants.BICEPS_GROUP).getOrAwaitValueTest()
+        assertThat(allExercises).contains(exerciseObject1)
+        assertThat(allExercises).doesNotContain(exerciseObject2)
     }
 
     @Test

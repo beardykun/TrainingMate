@@ -1,16 +1,16 @@
 package com.example.trainingmate.ui.commonComposables
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import com.example.trainingmate.dataBase.objects.ExerciseObject
-import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 import com.example.trainingmate.dataBase.objects.TrainingObject
+import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 
 @Composable
 fun CommonLazyListString(

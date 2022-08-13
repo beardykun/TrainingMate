@@ -10,6 +10,9 @@ interface ExerciseDao {
     @Query("SELECT * FROM table_exercise ORDER BY exerciseName ASC")
     fun getAllExercises(): LiveData<List<ExerciseObject>>
 
+    @Query("SELECT * FROM table_exercise WHERE exerciseGroup LIKE :exGroup ORDER BY exerciseName ASC")
+    fun getAllExercisesWithGroup(exGroup: String): LiveData<List<ExerciseObject>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExercise(exerciseObject: ExerciseObject)
 

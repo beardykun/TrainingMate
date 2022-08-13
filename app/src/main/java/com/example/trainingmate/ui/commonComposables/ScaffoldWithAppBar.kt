@@ -21,7 +21,6 @@ fun ScaffordWithAppBar(
         decayAnimationSpec,
         rememberTopAppBarState()
     )
-
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -45,6 +44,6 @@ fun ScaffordWithAppBar(
             }
         },
         floatingActionButton = { fab() },
-        floatingActionButtonPosition = FabPosition.End
+        floatingActionButtonPosition = FabPosition.End,
     )
 }

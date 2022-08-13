@@ -23,8 +23,8 @@ class DatabaseContract {
     class ExerciseColumns {
         companion object {
             const val EXERCISE_NAME = "exerciseName"
-            const val EXERCISE_IMAGE = "exerciseGroup"
-            const val EXERCISE_GROUP = "exerciseImage"
+            const val EXERCISE_IMAGE = "exerciseImage"
+            const val EXERCISE_GROUP = "exerciseGroup"
         }
     }
 
