@@ -2,7 +2,7 @@ package com.example.trainingmate.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.trainingmate.dataBase.TrainingDatabase
+import com.example.trainingmate.data.dataBase.TrainingDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
