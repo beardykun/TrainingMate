@@ -1,5 +1,6 @@
 package com.example.trainingmate.dataBase.dao
 
+import android.Manifest
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -7,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.trainingmate.dataBase.TrainingDatabase
 import com.example.trainingmate.dataBase.objects.ExerciseInfoObject
+import com.example.trainingmate.dataBase.objects.ExerciseSet
 import com.example.trainingmate.getOrAwaitValueTest
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -27,6 +29,12 @@ import javax.inject.Named
 @SmallTest
 @HiltAndroidTest
 class ExerciseInfoDaoTest {
+
+    @get:Rule
+    val runtimePermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    )
 
     @Inject
     @Named("test_db")
@@ -57,7 +65,7 @@ class ExerciseInfoDaoTest {
             1,
             "biceps curl",
             "biceps",
-            8,
+            listOf(),
             100.2.toFloat()
         )
         exerciseInfoDao.insertExercise(exerciseObject)
@@ -73,7 +81,7 @@ class ExerciseInfoDaoTest {
             1,
             "biceps curl",
             "biceps",
-            8,
+            listOf(),
             100.2.toFloat()
         )
         exerciseInfoDao.insertExercise(exerciseObject)
@@ -90,15 +98,16 @@ class ExerciseInfoDaoTest {
             1,
             "biceps curl",
             "biceps",
-            8,
+            listOf(),
             100.2.toFloat()
         )
         exerciseInfoDao.insertExercise(exerciseObject)
         val exerciseObjectUpdated = exerciseInfoDao.getExerciseWithTrainingName("biceps curl", "biceps").getOrAwaitValueTest()
-        exerciseObjectUpdated.exerciseReps = 250
+        val set = ExerciseSet(7f,7)
+        exerciseObjectUpdated.exerciseSet = listOf(set)
         exerciseInfoDao.updateExercise(exerciseObjectUpdated)
 
         val exercise = exerciseInfoDao.getExerciseWithTrainingName("biceps curl", "biceps").getOrAwaitValueTest()
-        assertThat(exercise.exerciseReps).isEqualTo(250)
+        assertThat(exercise.exerciseSet).contains(set)
     }
 }

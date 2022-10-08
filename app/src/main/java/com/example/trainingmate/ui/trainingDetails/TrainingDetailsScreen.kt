@@ -21,14 +21,14 @@ import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 import com.example.trainingmate.ui.commonComposables.CommonLazyListString
 import com.example.trainingmate.ui.commonComposables.ScaffordWithAppBar
 import com.example.trainingmate.ui.destinations.AddExerciseScreenDestination
+import com.example.trainingmate.ui.destinations.CurrentExerciseScreenDestination
 import com.example.trainingmate.ui.destinations.TrainingsMainDestination
 import com.example.trainingmate.wrapWithSelectable
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.map
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Destination
 @Composable
 fun TrainingsDetail(navigator: DestinationsNavigator, trainingObject: TrainingObject) {
@@ -58,7 +58,15 @@ fun TrainingsDetail(navigator: DestinationsNavigator, trainingObject: TrainingOb
                 )
                 return@ScaffordWithAppBar
             }
-            CommonLazyListString(state, exercises) {}
+            CommonLazyListString(state, exercises) {
+                viewModel.addCurrentExerciseInfoObject(it.exerciseObject, trainingObject)
+                navigator.navigate(
+                    CurrentExerciseScreenDestination(
+                        it.exerciseObject,
+                        trainingObject
+                    )
+                )
+            }
         },
         fab = {
             FloatingActionButton(onClick = {

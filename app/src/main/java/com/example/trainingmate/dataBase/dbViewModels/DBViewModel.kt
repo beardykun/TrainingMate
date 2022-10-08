@@ -10,6 +10,7 @@ import com.example.trainingmate.dataBase.repositories.ExerciseInfoRepository
 import com.example.trainingmate.dataBase.repositories.ExerciseRepository
 import com.example.trainingmate.dataBase.repositories.TrainingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,11 +46,15 @@ class DBViewModel @Inject constructor(
         exerciseRepository.updateExerciseAsync(exerciseObject)
     }
 
-    fun getExerciseInfoWithName(name: String, trainingName: String): LiveData<ExerciseInfoObject> {
-        return exerciseInfoRepository.getExerciseInfoWithName(name, trainingName)
+    fun getExerciseInfoWithName(exerciseName: String, trainingName: String): LiveData<ExerciseInfoObject> {
+        return exerciseInfoRepository.getExerciseInfoWithName(exerciseName, trainingName)
     }
 
-    fun insertExercise(exerciseInfoObject: ExerciseInfoObject) = viewModelScope.launch {
+    fun count(exName: String, exTrName: String): LiveData<Int> {
+        return exerciseInfoRepository.count(exName, exTrName)
+    }
+
+    fun insertExerciseInfo(exerciseInfoObject: ExerciseInfoObject) = viewModelScope.launch {
         exerciseInfoRepository.insertExerciseInfoAsync(exerciseInfoObject)
     }
 

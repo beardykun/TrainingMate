@@ -16,12 +16,12 @@ import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 fun CommonLazyListString(
     state: LazyListState,
     list: List<SelectableExerciseListItem>,
-    onItemClick: (Int) -> Unit
+    onItemClick: (SelectableExerciseListItem) -> Unit
 ) {
     LazyColumn(state = state) {
         items(list.size) { i ->
             val listItem = list[i]
-            ExerciseListItem(Modifier, onItemClick, i, listItem)
+            ExerciseListItem(Modifier, onItemClick, listItem)
         }
     }
 }

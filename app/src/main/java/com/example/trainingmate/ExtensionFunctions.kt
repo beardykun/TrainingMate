@@ -1,6 +1,8 @@
 package com.example.trainingmate
 
+import com.example.trainingmate.dataBase.objects.ExerciseInfoObject
 import com.example.trainingmate.dataBase.objects.ExerciseObject
+import com.example.trainingmate.dataBase.objects.ExerciseSet
 import com.example.trainingmate.dataBase.objects.TrainingObject
 import com.example.trainingmate.ui.addExercise.SelectableExerciseListItem
 
@@ -23,4 +25,12 @@ fun List<ExerciseObject>.wrapWithSelectable(trainingObject: TrainingObject): Lis
         )
     }
     return selectableItemsList
+}
+
+fun ExerciseInfoObject.addNewSet(weight: String, reps: String): ExerciseInfoObject {
+    val list = mutableListOf<ExerciseSet>()
+    list.addAll(this.exerciseSet)
+    list.add(ExerciseSet(weight.toFloat(), reps.toInt()))
+    this.exerciseSet = list
+    return this
 }

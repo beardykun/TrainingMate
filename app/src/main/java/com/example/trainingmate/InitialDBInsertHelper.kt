@@ -94,14 +94,6 @@ fun insertDefaultExercises(dbViewModel: DBViewModel) {
             R.mipmap.cross_body_hammer_curl
         )
     )
-    dbViewModel.insertExercise(
-        ExerciseObject(
-            null,
-            "Barbell lunge",
-            Constants.BICEPS_GROUP,
-            R.mipmap.barbell_lunge
-        )
-    )
     //triceps
     dbViewModel.insertExercise(
         ExerciseObject(

@@ -16,6 +16,9 @@ interface ExerciseInfoDao {
     @Delete
     suspend fun deleteExercise(exerciseInfoObject: ExerciseInfoObject)
 
+    @Query("SELECT COUNT() FROM table_exercise_info WHERE exerciseName LIKE :exName AND exerciseTrainingName LIKE :exTrName")
+    fun count(exName: String, exTrName: String): LiveData<Int>
+
     @Query("SELECT * FROM table_exercise_info WHERE exerciseName LIKE :exName AND exerciseTrainingName LIKE :exTrName")
     fun getExerciseWithTrainingName(exName: String, exTrName: String): LiveData<ExerciseInfoObject>
 }

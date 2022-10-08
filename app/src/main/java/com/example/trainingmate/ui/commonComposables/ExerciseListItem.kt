@@ -57,13 +57,12 @@ fun ExerciseListSelectableItem(
 @Composable
 fun ExerciseListItem(
     modifier: Modifier,
-    onItemClick: (Int) -> Unit,
-    i: Int,
+    onItemClick: (SelectableExerciseListItem) -> Unit,
     listItem: SelectableExerciseListItem
 ) {
     Row(
         modifier = modifier.fillMaxWidth().clickable {
-            onItemClick(i)
+            onItemClick(listItem)
         }.padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

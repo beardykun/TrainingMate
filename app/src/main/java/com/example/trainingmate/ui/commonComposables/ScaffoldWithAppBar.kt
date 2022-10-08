@@ -18,12 +18,12 @@ fun ScaffordWithAppBar(
 ) {
     val decayAnimationSpec = rememberSplineBasedDecay<Float>()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        decayAnimationSpec,
-        rememberTopAppBarState()
+        state = rememberTopAppBarState(),
+        flingAnimationSpec = decayAnimationSpec
     )
     Scaffold(
         topBar = {
-            SmallTopAppBar(
+            TopAppBar(
                 title = { Text(appBarTitle) },
                 navigationIcon = {
                     IconButton(onClick = {

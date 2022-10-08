@@ -15,7 +15,7 @@ import com.example.trainingmate.dataBase.objects.TrainingObject
     entities = [ExerciseObject::class, TrainingObject::class, ExerciseInfoObject::class],
     version = 1
 )
-@TypeConverters(TrainingExercisesTypeConverter::class)
+@TypeConverters(TrainingExercisesTypeConverter::class, ExerciseInfoObject.ExerciseSetTypeConverter::class)
 abstract class TrainingDatabase : RoomDatabase() {
 
     abstract fun exerciseDao(): ExerciseDao

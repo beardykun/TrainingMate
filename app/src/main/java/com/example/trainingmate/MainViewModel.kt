@@ -21,7 +21,7 @@ class MainViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     private val EXAMPLE_COUNTER = intPreferencesKey("firstLoad")
-    val exampleCounterFlow = dataStore.data
+    val firstLaunchFlow = dataStore.data
         .map { preferences ->
             // No type safety.
             val firstTime = preferences[EXAMPLE_COUNTER] ?: 0
