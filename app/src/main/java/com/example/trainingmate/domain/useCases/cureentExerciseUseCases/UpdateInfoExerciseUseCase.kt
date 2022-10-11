@@ -8,8 +8,9 @@ class UpdateInfoExerciseUseCase(private val repository: ICurrentExerciseReposito
 
     suspend fun invoke(
         exerciseInfoObject: ExerciseInfoObject,
-        dbViewModel: DBViewModel
+        dbViewModel: DBViewModel,
+        onError: (error: String) -> Unit
     ) {
-        repository.updateInfoExercise(exerciseInfoObject, dbViewModel)
+        repository.updateInfoExercise(exerciseInfoObject, dbViewModel, onError)
     }
 }

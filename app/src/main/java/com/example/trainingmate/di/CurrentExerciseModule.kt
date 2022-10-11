@@ -3,6 +3,7 @@ package com.example.trainingmate.di
 import com.example.trainingmate.data.repositories.CurrentExerciseRepositoryImpl
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.GetCurrentExerciseInfoObjectUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.UpdateInfoExerciseUseCase
+import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.ValidateInputUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +27,9 @@ object CurrentExerciseModule {
     @Provides
     fun provideUpdateInfoExerciseUseCase(repository: CurrentExerciseRepositoryImpl) =
         UpdateInfoExerciseUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideValidateInputUseCase(repository: CurrentExerciseRepositoryImpl) =
+        ValidateInputUseCase(repository)
 }

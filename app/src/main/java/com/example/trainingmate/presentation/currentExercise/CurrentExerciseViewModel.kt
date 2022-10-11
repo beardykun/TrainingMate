@@ -9,6 +9,7 @@ import com.example.trainingmate.data.dataBase.objects.ExerciseObject
 import com.example.trainingmate.data.dataBase.objects.TrainingObject
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.GetCurrentExerciseInfoObjectUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.UpdateInfoExerciseUseCase
+import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,13 +17,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class CurrentExerciseViewModel @Inject constructor(
     private val dbViewModel: DBViewModel,
     private val getCurrentExerciseInfoObjectUseCase: GetCurrentExerciseInfoObjectUseCase,
-    private val updateInfoExerciseUseCase: UpdateInfoExerciseUseCase
+    private val updateInfoExerciseUseCase: UpdateInfoExerciseUseCase,
+    private val validateInputUseCase: ValidateInputUseCase
 ) :
     ViewModel() {
 
@@ -43,10 +46,19 @@ class CurrentExerciseViewModel @Inject constructor(
         }
     }
 
-    fun updateInfoExercise(reps: String, weight: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _exerciseInfoObject.value?.addNewSet(reps, weight)
-                ?.let { updateInfoExerciseUseCase.invoke(it, dbViewModel) }
+    fun updateInfoExercise(reps: String, weight: String, onError: (error: String) -> Unit) {
+        viewModelScope.launch {
+            val validationOutput = validateInputUseCase.invoke(weight, reps)
+            if (validationOutput != "") {
+                onError(validationOutput)
+                return@launch
+            }
+            _exerciseInfoObject.value?.addNewSet(weight, reps)
+                ?.let {
+                    withContext(Dispatchers.IO) {
+                        updateInfoExerciseUseCase.invoke(it, dbViewModel, onError)
+                    }
+                }
         }
     }
 }

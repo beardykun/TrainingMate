@@ -13,5 +13,11 @@ interface ICurrentExerciseRepository {
         trainingObject: TrainingObject, dbViewModel: DBViewModel
     ): Flow<ExerciseInfoObject?>
 
-    suspend fun updateInfoExercise(exerciseInfoObject: ExerciseInfoObject, dbViewModel: DBViewModel)
+    suspend fun updateInfoExercise(
+        exerciseInfoObject: ExerciseInfoObject,
+        dbViewModel: DBViewModel,
+        onError: (error: String) -> Unit
+    )
+
+    suspend fun validateInput(weight: String, reps: String): String
 }

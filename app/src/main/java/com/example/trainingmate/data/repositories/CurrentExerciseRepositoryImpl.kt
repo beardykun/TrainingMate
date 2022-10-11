@@ -2,7 +2,6 @@ package com.example.trainingmate.data.repositories
 
 import android.os.Build
 import androidx.lifecycle.asFlow
-import com.example.trainingmate.addNewSet
 import com.example.trainingmate.data.dataBase.dbViewModels.DBViewModel
 import com.example.trainingmate.data.dataBase.objects.ExerciseInfoObject
 import com.example.trainingmate.data.dataBase.objects.ExerciseObject
@@ -27,9 +26,23 @@ object CurrentExerciseRepositoryImpl : ICurrentExerciseRepository {
 
     override suspend fun updateInfoExercise(
         exerciseInfoObject: ExerciseInfoObject,
-        dbViewModel: DBViewModel
+        dbViewModel: DBViewModel,
+        onError: (error: String) -> Unit
     ) {
         dbViewModel.updateInfoExercise(exerciseInfoObject)
+    }
+
+    override suspend fun validateInput(weight: String, reps: String): String {
+        return if (weight == "0.0" || weight == "0") {
+            "Weight can't be 0"
+        } else if (weight.contains(",")) {
+            "Please use '.' instead of ',' for weight"
+        } else if (reps.contains(",") || reps.contains(".")) {
+            "reps should not be a floating point number"
+
+        } else if (reps == "0") {
+            "Reps should not be 0"
+        } else ""
     }
 
 
