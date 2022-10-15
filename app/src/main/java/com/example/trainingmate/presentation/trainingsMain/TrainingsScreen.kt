@@ -32,5 +32,6 @@ fun TrainingsMain(navigator: DestinationsNavigator) {
             CommonLazyListTrainingObject(state, list) { training ->
                 navigator.navigate(TrainingsDetailDestination(training))
             }
-        })
+        },
+    fab = { })
 }

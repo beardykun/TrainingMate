@@ -26,7 +26,6 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalPagerApi::class)
 @ExperimentalMaterial3Api
 @Composable
 @Destination
@@ -34,8 +33,6 @@ fun AddExerciseScreen(navigator: DestinationsNavigator, trainingObject: Training
     val dbViewModel: DBViewModel = hiltViewModel()
     val viewModel: AddExercisesViewModel = hiltViewModel()
 
-    var exercises by rememberSaveable { mutableStateOf(listOf<SelectableExerciseListItem>()) }
-    val corScope = rememberCoroutineScope()
     ScaffordWithAppBar(
         appBarTitle = "Add New Exercise",
         navigate = {
@@ -43,70 +40,72 @@ fun AddExerciseScreen(navigator: DestinationsNavigator, trainingObject: Training
             navigator.navigate(TrainingsDetailDestination(trainingObject))
         },
         content = {
-            val pagerState = rememberPagerState(initialPage = 0)
+            UiContent(viewModel, dbViewModel, trainingObject)
+        }
+    )
+}
 
-            val scope = rememberCoroutineScope()
-            val pages = (0 until 8).map { it }
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+private fun UiContent(
+    viewModel: AddExercisesViewModel,
+    dbViewModel: DBViewModel,
+    trainingObject: TrainingObject,
+) {
+    var exercises by rememberSaveable { mutableStateOf(listOf<SelectableExerciseListItem>()) }
+    val corScope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(initialPage = 0)
 
-            LaunchedEffect(key1 = pagerState) {
-                snapshotFlow { pagerState.currentPage }.collect { page ->
-                    corScope.launch {
-                        viewModel.getUpdateExerciseList(page, dbViewModel, trainingObject) {
-                            exercises = it
-                        }
-                    }
-                }
-            }
-            Column {
-                TabRow(
-                    selectedTabIndex = pagerState.currentPage,
-                    indicator = { tabPositions ->
-                        TabRowDefaults.Indicator(
-                            Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
-                        )
-                    }
-                ) {
-                    pages.forEach { index ->
-                        Tab(
-                            icon = {
-                                Image(
-                                    painter = rememberAsyncImagePainter(model = viewModel.getGroupIcon(index)),
-                                    contentDescription = null
-                                )
-                            },
-                            //text = { Text(text = viewModel.getGroupName(index)) },
-                            selected = pagerState.currentPage == index,
-                            onClick = {
-                                scope.launch {
-                                    pagerState.animateScrollToPage(index)
-                                }
-                            },
-                        )
-                    }
-                }
-                HorizontalPager(count = 8, state = pagerState) { page ->
+    val scope = rememberCoroutineScope()
+    val pages = (0 until 8).map { it }
 
-
-                    val state = rememberLazyListState()
-
-                    CommonLazyListExerciseObject(
-                        state,
-                        exercises,
-                        Modifier.fillMaxHeight()
-                    ) { i ->
-                        exercises = exercises.mapIndexed { j, item ->
-                            if (i == j) {
-                                if (trainingObject.trainingExerciseNameList.contains(item.exerciseObject.exerciseName)) {
-                                    trainingObject.trainingExerciseNameList.remove(item.exerciseObject.exerciseName)
-                                } else {
-                                    trainingObject.trainingExerciseNameList.add(item.exerciseObject.exerciseName)
-                                }
-                                item.copy(isSelected = !item.isSelected)
-                            } else item
-                        }
-                    }
+    LaunchedEffect(key1 = pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            corScope.launch {
+                viewModel.getUpdateExerciseList(page, dbViewModel, trainingObject) {
+                    exercises = it
                 }
             }
         }
-    )
+    }
+    Column {
+        TabRow(
+            selectedTabIndex = pagerState.currentPage,
+            indicator = { tabPositions ->
+                TabRowDefaults.Indicator(
+                    Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
+                )
+            }
+        ) {
+            pages.forEach { index ->
+                Tab(
+                    icon = {
+                        Image(
+                            painter = rememberAsyncImagePainter(model = viewModel.getGroupIcon(index)),
+                            contentDescription = null
+                        )
+                    },
+                    //text = { Text(text = viewModel.getGroupName(index)) },
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                )
+            }
+        }
+        HorizontalPager(count = 8, state = pagerState) { page ->
+
+            val state = rememberLazyListState()
+
+            CommonLazyListExerciseObject(
+                state,
+                exercises,
+                Modifier.fillMaxHeight()
+            ) { i ->
+                exercises = viewModel.getCurrentList(exercises, i, trainingObject)
+            }
+        }
+    }
 }

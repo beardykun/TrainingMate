@@ -50,7 +50,24 @@ class AddExercisesViewModel @Inject constructor() : ViewModel() {
             4 -> R.mipmap.arni_chest
             5 -> R.mipmap.arni_legs
             6 -> R.mipmap.arni_traps
-            else ->R.mipmap.arni_abs
+            else -> R.mipmap.arni_abs
+        }
+    }
+
+    fun getCurrentList(
+        exercises: List<SelectableExerciseListItem>,
+        i: Int,
+        trainingObject: TrainingObject
+    ): List<SelectableExerciseListItem> {
+        return exercises.mapIndexed { j, item ->
+            if (i == j) {
+                if (trainingObject.trainingExerciseNameList.contains(item.exerciseObject.exerciseName)) {
+                    trainingObject.trainingExerciseNameList.remove(item.exerciseObject.exerciseName)
+                } else {
+                    trainingObject.trainingExerciseNameList.add(item.exerciseObject.exerciseName)
+                }
+                item.copy(isSelected = !item.isSelected)
+            } else item
         }
     }
 }

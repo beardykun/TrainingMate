@@ -20,4 +20,6 @@ interface ICurrentExerciseRepository {
     )
 
     suspend fun validateInput(weight: String, reps: String): String
+
+    fun countdownTimer(time: Int): Flow<String>
 }

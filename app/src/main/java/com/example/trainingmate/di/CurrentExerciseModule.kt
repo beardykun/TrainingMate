@@ -1,6 +1,7 @@
 package com.example.trainingmate.di
 
 import com.example.trainingmate.data.repositories.CurrentExerciseRepositoryImpl
+import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.CountdownTimerUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.GetCurrentExerciseInfoObjectUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.UpdateInfoExerciseUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.ValidateInputUseCase
@@ -32,4 +33,9 @@ object CurrentExerciseModule {
     @Provides
     fun provideValidateInputUseCase(repository: CurrentExerciseRepositoryImpl) =
         ValidateInputUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideCountdownTimerUseCase(repository: CurrentExerciseRepositoryImpl) =
+        CountdownTimerUseCase(repository)
 }

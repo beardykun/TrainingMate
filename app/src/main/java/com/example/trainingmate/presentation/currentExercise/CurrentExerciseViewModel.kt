@@ -7,15 +7,13 @@ import com.example.trainingmate.data.dataBase.dbViewModels.DBViewModel
 import com.example.trainingmate.data.dataBase.objects.ExerciseInfoObject
 import com.example.trainingmate.data.dataBase.objects.ExerciseObject
 import com.example.trainingmate.data.dataBase.objects.TrainingObject
+import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.CountdownTimerUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.GetCurrentExerciseInfoObjectUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.UpdateInfoExerciseUseCase
 import com.example.trainingmate.domain.useCases.cureentExerciseUseCases.ValidateInputUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,7 +23,8 @@ class CurrentExerciseViewModel @Inject constructor(
     private val dbViewModel: DBViewModel,
     private val getCurrentExerciseInfoObjectUseCase: GetCurrentExerciseInfoObjectUseCase,
     private val updateInfoExerciseUseCase: UpdateInfoExerciseUseCase,
-    private val validateInputUseCase: ValidateInputUseCase
+    private val validateInputUseCase: ValidateInputUseCase,
+    private val countdownTimerUseCase: CountdownTimerUseCase
 ) :
     ViewModel() {
 
@@ -59,6 +58,12 @@ class CurrentExerciseViewModel @Inject constructor(
                         updateInfoExerciseUseCase.invoke(it, dbViewModel, onError)
                     }
                 }
+        }
+    }
+
+    fun startCountdownTimer(time: Int) {
+        viewModelScope.launch {
+            countdownTimerUseCase.invoke(time).collect()
         }
     }
 }
